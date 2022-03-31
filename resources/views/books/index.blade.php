@@ -10,9 +10,8 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
-        <h3>{{Auth::user()->name}}</h3>
         <h1>Book</h1>
-        <div class='posts'>
+        <div class='index'>
             @foreach ($books as $book)
                 <div class='book'>
                     <h2 class='name'><a href="/books/{{ $book->id }}">{{ $book->name }}</a></h2>
@@ -22,7 +21,8 @@
         <div class='paginate'>
             {{ $books->links() }}
         </div>
-        [<a href="/books/create">create</a>]
+        [<a href="/books/create">教材を登録する</a>]<br>
+        <a href="/posts">投稿一覧を見る。</a>
         
         {{--
         <div>

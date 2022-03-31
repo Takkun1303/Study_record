@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="/css/app.css">
     </head>
     <body>
-        <h1 class="title">編集画面</h1>
+        <h1 class="title">教材編集画面</h1>
         <div class="content">
             <form action="/books/{{ $book->id }}" method="POST">
                 @csrf
