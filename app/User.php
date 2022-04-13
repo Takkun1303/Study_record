@@ -55,4 +55,15 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post');
     }
+    
+    public function nices()
+    {
+        return $this->belongsToMany('App\Post')->withTimestamps();
+    }
+    
+    public function comments()
+    {
+        return $this->belongsToMany('App\Post')->withTimestamps();
+    }
+    
 }

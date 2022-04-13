@@ -28,7 +28,7 @@
                     @endfor
                     {{--<p class="minutes__error" style="color:red">{{ $errors->first('learning_hours.minutes') }}</p>--}}
                 </select>
-                <input type="file" name="image"
+                <input type="file" name="image[]" multiple>
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                 <input type="hidden" name="book_id" value="{{$book->id}}">
             </div>

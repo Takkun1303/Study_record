@@ -21,6 +21,32 @@
                 <p>{{ $post->text }}</p>
                 <p>{{ (int)($post->learning_hours/60) }}時間{{ $post->learning_hours%60 }}分</p>
                 <p class="edit">[<a href="/books/{{ $book->id }}/posts/{{$post->id}}/edit">学習記録を編集する</a>]</p>
+                    @foreach($post->postimages as $postimage)
+                        <img src="{{ $postimage->file_path }}" />
+                    @endforeach
+                    
+                <div class="nices">
+                    @if($post->users()->where('user_id', Auth::id())->exists())
+                        <form action="/posts/{{ $post->id }}/unnices" method="POST">
+                            @csrf
+                            <input type="submit" value="&#xf164;いいね取り消す" class="fas btn btn-danger">
+                        </form>
+                    @else
+                        <form action="/posts/{{ $post->id }}/nices" method="POST">
+                            @csrf
+                            <input type="submit" value="&#xf164;いいね" class="fas btn btn-success">
+                        </form>
+                    @endif
+                    <p>いいね数：{{ $post->users()->count() }}</p>
+                </div>
+                
+                <div class="commnet">
+                    <a href="/posts/{{ $post->id }}/comment/create"><i class="fa-solid fa-comment"></i></a>
+                    @if($post->comment_users()->where('post_id', $post->id)->exists())
+                        <p>{{ $post->comment_users()->count() }}</p>
+                    @endif
+                </div>    
+                    
                 <form action="/books/{{ $book->id }}/posts/{{$post->id}}" id="form_{{ $post->id }}" method="post" style="display:inline">
                   @csrf
                   @method('DELETE')

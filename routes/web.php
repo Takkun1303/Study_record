@@ -27,6 +27,12 @@ Route::get('/books/{book}/posts/{post}', 'PostController@show');
 Route::get('/books/{book}/posts/{post}/edit','PostController@edit');
 Route::put('/books/{book}/posts/{post}','PostController@update');
 Route::delete('/books/{book}/posts/{post}','PostController@delete');
+
+Route::post('posts/{post}/nices','NiceController@store');
+Route::post('posts/{post}/unnices','NiceController@destroy');
+
+Route::get('posts/{post}/comment/create','CommentController@create');
+Route::post('posts/{post}/comment','CommentController@store');
 });
 Auth::routes();
 

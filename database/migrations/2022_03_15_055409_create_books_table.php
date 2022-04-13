@@ -17,6 +17,10 @@ class CreateBooksTable extends Migration
             $table->integer('user_id')->unsigned();
         });
     }
-
+    
+    public function down()
+    {
+        Schema::dropIfExists('books');
+    }
     
 }

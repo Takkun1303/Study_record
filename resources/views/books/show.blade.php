@@ -30,12 +30,27 @@
                 <div class="study_hours">{{(int)($post->learning_hours/60)}}時間{{$post->learning_hours%60}}分</div>
                 <div class="text"><a href="/books/{{$book->id}}/posts/{{$post->id}}">{{$post->text}}</a></div>
                 
-                {{--<p class="post_edit"><a href="/posts/{{$book->id}}/edit">学習記録を編集する</a></p>--}}
-                {{--<form action="/posts/{{$book->id}}" id="post_delete" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">学習記録を削除する</button>
-                </form>--}}
+                <div class="nices">
+                    @if($post->users()->where('user_id', Auth::id())->exists())
+                        <form action="/posts/{{ $post->id }}/unnices" method="POST">
+                            @csrf
+                            <input type="submit" value="&#xf164;いいね取り消す" class="fas btn btn-danger">
+                        </form>
+                    @else
+                        <form action="/posts/{{ $post->id }}/nices" method="POST">
+                            @csrf
+                            <input type="submit" value="&#xf164;いいね" class="fas btn btn-success">
+                        </form>
+                    @endif
+                    <p>いいね数：{{ $post->users()->count() }}</p>
+                </div>
+                
+                <div class="commnet">
+                    <a href="/posts/{{ $post->id }}/comment/create"><i class="fa-solid fa-comment"></i></a>
+                    @if($post->comment_users()->where('post_id', $post->id)->exists())
+                        <p>{{ $post->comment_users()->count() }}</p>
+                    @endif
+                </div>
                 <hr>
             @endforeach
         </div>
@@ -51,3 +66,4 @@
 </html>
 
 @endsection
+                
