@@ -22,8 +22,8 @@
             {{ $books->links() }}
         </div>
         [<a href="/books/create">教材を登録する</a>]<br>
-        <a href="/posts">投稿一覧を見る。</a>
-        
+        <a href="/posts">投稿一覧を見る。</a><br>
+        <a href="/review">レビュー</a>
         {{--
         <div>
             @foreach($questions as $question)

@@ -33,6 +33,9 @@ Route::post('posts/{post}/unnices','NiceController@destroy');
 
 Route::get('posts/{post}/comment/create','CommentController@create');
 Route::post('posts/{post}/comment','CommentController@store');
+
+Route::get('/review','ReviewController@index');
+Route::post('/review/show','ReviewController@show');
 });
 Auth::routes();
 

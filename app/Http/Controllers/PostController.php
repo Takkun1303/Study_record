@@ -87,19 +87,56 @@ class PostController extends Controller
         return view('posts/edit')->with(['post'=>$post, 'book'=>$book]);
     }
     
-    public function update(Book $book, Post $post, PostRequest $request)
+    public function update(Book $book, Post $post, PostImage $postimage, PostRequest $request)
     {
         $minutes=$request->learning_hours_hours*60 + $request->learning_hours_minutes;
         
-        $post->fill([
+        $images=$request->file('image');
+        
+        if ($images) {
+        
+            $post->fill([
+                'text'=>$request->text,
+                'learning_hours'=>$minutes,
+                'user_id'=>$request->user_id,
+                'book_id'=>$request->book_id,
+            ]);
+            
+            $post->save();
+            
+            foreach ($images as $image) {
+            
+                //imagesフォルダに、第二引数に指定した画像を保存する
+                $path=Storage::disk('s3')->putfile('images',$image,'public');
+                 //アップロードした画像のファイルパスを取得
+                $imagepath=Storage::disk('s3')->url($path);
+                //アップロードした画像のファイル名の取得
+                $file_name=$image->getClientOriginalName();
+                
+                $post->postimages()->create([
+                    'file_name'=>$file_name,
+                    'file_path'=>$imagepath,
+                    'post_id'=>$post->id
+                ]);
+                
+    
+            }
+            
+            return redirect('/books/' . $post->book_id . '/posts/' . $post->id);
+
+        } else {
+            
+            $post->fill([
             'text'=>$request->text,
             'learning_hours'=>$minutes,
             'user_id'=>$request->user_id,
             'book_id'=>$request->book_id,
             ]);
             
-        $post->save();
-        return redirect('/books/' . $post->book_id . '/posts/' . $post->id);
+            $post->save();
+            return redirect('/books/' . $post->book_id . '/posts/' . $post->id);
+
+        }
     }
     
     public function delete(Book $book, Post $post)

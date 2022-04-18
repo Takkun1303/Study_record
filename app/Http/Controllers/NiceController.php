@@ -87,4 +87,5 @@ class NiceController extends Controller
         
         return redirect('/posts');
     }
+    
 }

@@ -9,7 +9,7 @@
     </head>
     <body>
         <h1>{{$book->name}}</h1>
-        <form action="/books/{{$book->id}}/posts/{{$post->id}}" method="POST">
+        <form action="/books/{{$book->id}}/posts/{{$post->id}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="title">
@@ -29,7 +29,7 @@
                     @endfor
                     {{--<p class="minutes__error" style="color:red">{{ $errors->first('learning_hours.minutes') }}</p>--}}
                 </select>
-                
+                <input type="file" name="image[]" multiple>
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                 <input type="hidden" name="book_id" value="{{$book->id}}">
             </div>
