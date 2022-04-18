@@ -14,19 +14,6 @@ let calendar = new Calendar(calendarEl, {
     },
     locale: "ja",
     
-    events: function (info, successCallback, failureCallback) {
-        // Laravelのイベント取得処理の呼び出し
-        axios
-            .post("/review", {
-                start_date: info.start.valueOf(),
-            })
-            .then((response) => {
-                // 追加したイベントを削除
-                calendar.removeAllEvents();
-                // カレンダーに読み込み
-                successCallback(response.data);
-            })
-            
-    },
+    
 });
 calendar.render();
