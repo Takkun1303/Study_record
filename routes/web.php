@@ -13,6 +13,7 @@
 Route::group(['middleware'=>['auth']],function() {
     
 Route::get('/books', 'BookController@index');
+Route::get('/','BookController@index');
 Route::get('/books/create','BookController@create');
 Route::post('/books','BookController@store');
 Route::get('/books/{book}','BookController@show');
