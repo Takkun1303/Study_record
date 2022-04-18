@@ -18,7 +18,7 @@ let calendar = new Calendar(calendarEl, {
         // Laravelのイベント取得処理の呼び出し
         axios
             .post("/review", {
-                created_at: info.start.valueOf(),
+                start_date: info.start.valueOf(),
             })
             .then((response) => {
                 // 追加したイベントを削除
@@ -26,10 +26,7 @@ let calendar = new Calendar(calendarEl, {
                 // カレンダーに読み込み
                 successCallback(response.data);
             })
-            .catch(() => {
-                // バリデーションエラーなど
-                alert("登録に失敗しました");
-            });
+            
     },
 });
 calendar.render();
